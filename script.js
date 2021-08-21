@@ -2,6 +2,7 @@ const city = document.querySelector(".city");
 const temp = document.querySelector(".temp");
 const wind = document.querySelector(".windspeed");
 const container = document.querySelector(".weather");
+let description;
 
 class weather {
   constructor(city) {
@@ -15,8 +16,13 @@ class weather {
         city.innerText = this.city;
         temp.innerText = data.forecast[0].temperature;
         wind.innerText = `Wind speed: ${data.wind}`;
+        const now = new Date();
+        const hour = now.getHours();
+        console.log(hour);
+        if (hour >= 19 || hour <= 3) description = "moon";
+        else description = data.description;
         const html = `
-        <img src="./assets/${data.description}.png" alt="">
+        <img src="./assets/${description}.png" alt="">
         `;
         container.insertAdjacentHTML("afterbegin", html);
       });
